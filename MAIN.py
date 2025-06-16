@@ -128,8 +128,8 @@ def main():
                         while True:
                             nombre = input("Nombre empresa: ")
                             unica = True
-                            for i in sistema_fabrica.nombres_empresas:
-                                if nombre == i:
+                            for i in sistema_fabrica.clientes:
+                                if nombre == i.nombre:
                                     unica = False
                             if not unica:
                                 print("Empresa ya registrada.")
@@ -274,7 +274,11 @@ def main():
                 elif opc_list == "5":  # Contabilidad
                     precio_total = 0
                     for ped in sistema_fabrica.pedidos:
-                        precio_total += ped.precio()
+                        if ped.es_empresaP():
+                            pre = ped.precio() / 0.8
+                            precio_total += pre
+                        else:
+                            precio_total += ped.precio()
                     costo_total = precio_total / 1.5
                     ganancia = precio_total - costo_total
                     impuesto = ganancia * 0.25
